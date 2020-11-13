@@ -1,21 +1,18 @@
 body {
     background-color: #eeeeee;
 }
-
 svg {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 path {
     fill: none;
     stroke: rgb(230, 230, 230);
     stroke-width: 1;
     opacity: 1;
 }
-
 text {
     color: #666666;
     cursor: default;
@@ -25,7 +22,8 @@ text {
     transform: translate(0, 0);
     opacity: 1;
 }
-
-.white-text {
-    fill: #ffffff;
+.main__text {
+    color: #666666;
+    cursor: default;
+    font-size: 26px;
 }

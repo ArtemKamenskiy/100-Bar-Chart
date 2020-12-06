@@ -134,10 +134,6 @@ function percentCalc(spec, num) {
     const females = specialization.filter((val) => val[0] === "женский");
     const malePercent = (males.length * 100 / specialization.length).toFixed();
     const femalePercent = (females.length * 100 / specialization.length).toFixed();
-    const malePercent1 = (390 - 2.8 * malePercent).toFixed();
-    const femalePercent1 = (390 - 2.8 * femalePercent).toFixed();
-    const heightBarMale = 390 - malePercent1;
-    const heightBarFemale = 390 - femalePercent1;
     const positionMalePercent = (390 - 2.8 * (malePercent/2)).toFixed();
     const positionFemalePercent = (110 + 2.8 * (femalePercent/2)).toFixed();
 
@@ -148,16 +144,16 @@ function percentCalc(spec, num) {
     const rectangleMales = createElement('rect', bar);
     setAttributes(rectangleMales, {
         width: 50,
-        height: heightBarMale,
+        height: 390 - (390 - 2.8 * malePercent).toFixed(),
         fill: '#719ff5',
         x: num,
-        y: malePercent1
+        y: (390 - 2.8 * malePercent).toFixed()
     });
 
     const rectangleFemales = createElement('rect', bar);
     setAttributes(rectangleFemales, {
         width: 50,
-        height: heightBarFemale,
+        height: 390 - (390 - 2.8 * femalePercent).toFixed(),
         fill: '#9a54ba',
         x: num,
         y: 110
@@ -180,14 +176,25 @@ function percentCalc(spec, num) {
     });
     femalePercentageText.innerHTML = femalePercent + '%';
 
-
     const positionTextContainer = createElement('g', svg);
     const positionText = createElement('text', positionTextContainer);
     setAttributes(positionText, {
-        x: num + 70,
+        x: textPositionCorrection(),
         y: 420
     });
     positionText.innerHTML = specLength();
+
+    function textPositionCorrection() {
+        if(spec.length < 6) {
+            return num + 40;
+        }
+        else if(spec.length < 10) {
+            return num + 50;
+        }
+        else {
+            return num + 70;
+        }
+    }
 
     function specLength() {
         if(spec.length >= 12) {
@@ -198,7 +205,14 @@ function percentCalc(spec, num) {
     }
 }
 
-//test bars creation
-percentCalc("QA Engineer", 108);
-percentCalc("HTML Coder", 208);
-percentCalc("Director of Engineering / Program Director", 308);
+//get 5 random positions of it industry
+const allPositions = data.map((val) => val[4]);
+const newData = [...new Set(allPositions)];
+let num = 0;
+
+for(let i = 0; i < 5; i++) {
+    num += 120;
+    let randomIndex = Math.floor(Math.random() * newData.length);
+    percentCalc(newData[randomIndex], num)
+}
+

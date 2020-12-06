@@ -53,7 +53,6 @@ setAttributes(path5, {
     d: "M 74 110 L 700 110",
 });
 
-
 //rendering percentage text
 const textContainer = createElement('g', svg);
 const zero = createElement('text', textContainer);
